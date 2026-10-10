@@ -166,7 +166,7 @@ let
         };
         hooks = {
           start = ''
-            ${tmux} -S ${sock} new -d ${getExe server.package} ${server.jvmOpts}
+            ${tmux} -S ${sock} new -d '${getExe server.package} ${server.jvmOpts} |& tee >(systemd-cat -t minecraft-server-${name})' ${lib.getExe pkgs.bash}
 
             # HACK: PrivateUsers makes every user besides root/minecraft `nobody`, so this restores old tmux behavior
             # See https://github.com/Infinidoge/nix-minecraft/issues/5
